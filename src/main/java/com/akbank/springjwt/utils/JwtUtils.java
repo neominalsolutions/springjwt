@@ -3,13 +3,16 @@ package com.akbank.springjwt.utils;
 import java.security.Key;
 import java.util.Date;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import com.akbank.springjwt.config.JwtSettings;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
@@ -29,7 +32,7 @@ public class JwtUtils {
 
     // setExpiration(new Date(new Date().getTime() + jwtProp))
     return Jwts.builder()
-        .setSubject(userPrinciple.getName())
+        .setSubject(userPrinciple.getUsername())
         .setIssuedAt(new Date())
         .setExpiration(new Date(new Date().getTime() + this.jwtProp.getExpirationMs()))
         .signWith(key(), SignatureAlgorithm.HS512).compact();

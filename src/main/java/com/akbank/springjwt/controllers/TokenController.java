@@ -26,12 +26,12 @@ public class TokenController {
     this.authenticationManager = authenticationManager;
   }
 
-  @PostMapping("token")
+  @PostMapping("/token")
   public ResponseEntity<TokenResponseDto> generateToken(@RequestBody TokenRequestDto request) {
 
     // Spirng Security ile request gelen değerlere göre authentication olup
     // olmadığını kontrol edicez.
-    var authentication = authenticationManager
+    var authentication = this.authenticationManager
         .authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
