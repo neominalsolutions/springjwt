@@ -6,7 +6,8 @@ import lombok.Data;
 
 @Data
 @ConfigurationProperties(prefix = "jwt")
-public class JwtSettings {
+public class JwtProperties {
+
   public String secret;
   public int expirationMs;
 }
